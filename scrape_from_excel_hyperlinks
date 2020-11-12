@@ -1,0 +1,20 @@
+import pandas as pd
+import openpyxl
+# Loading the excel sheet with links
+wb = openpyxl.load_workbook('PATH of your excel file')
+ws = wb['Results']
+# Running a loop on sheet column that contains hyperlinks assuming all of your hyperlinks are in in one column
+for x in range(starting_row,end_row):
+    path = ws.cell(row=x, column=1).hyperlink.target
+    # Converting http to https if required, check if the links are in http or https:
+    path = path[: 4] + "s" + path[4:]
+    # Printing Path optional 
+    print(path)
+    # reading data frame from website using pandas
+    dfs=pd.read_html(path)
+    # selecting first data frame from the list of data frames extracted above, you can select the df where your data lies or repeat this for all DFs by using for df in dfs, you can also use a custom code for scraping whatever data you want.
+    df = dfs[0]
+    # transposing the data frame as my data needs to be transposed
+    df = df.transpose()
+    # writing to CSV by opening in append mode
+    df.to_csv("your_csv_name.csv", mode='a', header=False)
