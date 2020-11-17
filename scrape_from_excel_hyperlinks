@@ -2,8 +2,8 @@ import pandas as pd
 import openpyxl
 # Loading the excel sheet with links
 wb = openpyxl.load_workbook('PATH of your excel file')
-ws = wb['Results']
-# Running a loop on sheet column that contains hyperlinks assuming all of your hyperlinks are in in one column
+ws = wb['Worksheet Name']
+# Running a loop on sheet column that contains hyperlinks assuming all of your hyperlinks are in in one column (first column in this case)
 for x in range(starting_row,end_row):
     path = ws.cell(row=x, column=1).hyperlink.target
     # Converting http to https if required, check if the links are in http or https:
